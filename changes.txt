@@ -5,3 +5,4 @@
 -Made Apples Getable
 -Added Score UI
 -Added Score Functionality
+-Added Enemy
