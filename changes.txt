@@ -1,0 +1,7 @@
+-Added coyote time
+-Added one way platforms
+-Added Camera With Bounds
+-Added Apples
+-Made Apples Getable
+-Added Score UI
+-Added Score Functionality

@@ -1,9 +1,13 @@
-[gd_scene load_steps=7 format=3 uid="uid://6biaakv5tnyk"]
+[gd_scene load_steps=13 format=3 uid="uid://tvesimlfj17r"]
 
 [ext_resource type="Texture2D" uid="uid://bltdigf2humig" path="res://Green.png" id="1_ivbmp"]
+[ext_resource type="Script" path="res://Global.gd" id="1_j2tti"]
+[ext_resource type="Texture2D" uid="uid://cf0ak3812801l" path="res://shiny-apple (1).svg" id="2_7dmad"]
 [ext_resource type="Texture2D" uid="uid://dgivrolcvw3ke" path="res://Terrain (16x16).png" id="2_17g7w"]
 [ext_resource type="PackedScene" uid="uid://bh7nmqlmud1ud" path="res://scenes/Main_Character.tscn" id="3_0h8xa"]
 [ext_resource type="PackedScene" uid="uid://dbyldmd5dhfa2" path="res://Apple.tscn" id="4_hppgw"]
+[ext_resource type="Script" path="res://label.gd" id="6_ska74"]
+[ext_resource type="PackedScene" uid="uid://4emu81317chy" path="res://enemy.tscn" id="8_o00ox"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_yws6a"]
 texture = ExtResource("2_17g7w")
@@ -62,14 +66,17 @@ texture = ExtResource("2_17g7w")
 17:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 17:0/0/physics_layer_0/angular_velocity = 0.0
 17:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+17:0/0/physics_layer_0/polygon_0/one_way = true
 18:0/0 = 0
 18:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 18:0/0/physics_layer_0/angular_velocity = 0.0
 18:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+18:0/0/physics_layer_0/polygon_0/one_way = true
 19:0/0 = 0
 19:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 19:0/0/physics_layer_0/angular_velocity = 0.0
 19:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+19:0/0/physics_layer_0/polygon_0/one_way = true
 0:1/0 = 0
 0:1/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 0:1/0/physics_layer_0/angular_velocity = 0.0
@@ -116,14 +123,17 @@ texture = ExtResource("2_17g7w")
 17:1/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 17:1/0/physics_layer_0/angular_velocity = 0.0
 17:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+17:1/0/physics_layer_0/polygon_0/one_way = true
 18:1/0 = 0
 18:1/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 18:1/0/physics_layer_0/angular_velocity = 0.0
 18:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+18:1/0/physics_layer_0/polygon_0/one_way = true
 19:1/0 = 0
 19:1/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 19:1/0/physics_layer_0/angular_velocity = 0.0
 19:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+19:1/0/physics_layer_0/polygon_0/one_way = true
 0:2/0 = 0
 0:2/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 0:2/0/physics_layer_0/angular_velocity = 0.0
@@ -467,7 +477,30 @@ texture = ExtResource("2_17g7w")
 physics_layer_0/collision_layer = 1
 sources/0 = SubResource("TileSetAtlasSource_yws6a")
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fknxl"]
+bg_color = Color(0.623529, 0.8, 0.596078, 1)
+border_width_left = 10
+border_width_top = 10
+border_width_right = 10
+border_width_bottom = 10
+border_color = Color(0.576471, 0.772549, 0.588235, 1)
+border_blend = true
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+shadow_size = 4
+shadow_offset = Vector2(10, 10)
+
+[sub_resource type="LabelSettings" id="LabelSettings_dm5wn"]
+outline_size = 5
+outline_color = Color(0.576471, 0.772549, 0.588235, 1)
+shadow_size = 2
+shadow_color = Color(0.129412, 0.121569, 0.188235, 1)
+shadow_offset = Vector2(2, 2)
+
 [node name="Node" type="Node"]
+script = ExtResource("1_j2tti")
 
 [node name="TextureRect" type="TextureRect" parent="."]
 texture_filter = 1
@@ -512,9 +545,49 @@ position = Vector2(207, 884)
 scale = Vector2(2, 2)
 
 [node name="Apple2" parent="." instance=ExtResource("4_hppgw")]
-position = Vector2(402, 645)
+position = Vector2(291, 882)
 scale = Vector2(2, 2)
 
 [node name="Apple3" parent="." instance=ExtResource("4_hppgw")]
-position = Vector2(598, 553)
+position = Vector2(403, 641)
 scale = Vector2(2, 2)
+
+[node name="Apple4" parent="." instance=ExtResource("4_hppgw")]
+position = Vector2(597, 550)
+scale = Vector2(2, 2)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Panel" type="Panel" parent="CanvasLayer"]
+offset_left = 32.0
+offset_top = 29.0
+offset_right = 233.0
+offset_bottom = 81.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_fknxl")
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/Panel"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 24.0
+offset_top = -19.0
+offset_right = 64.0
+offset_bottom = 21.0
+grow_vertical = 2
+texture = ExtResource("2_7dmad")
+expand_mode = 1
+
+[node name="Label" type="Label" parent="CanvasLayer/Panel"]
+layout_mode = 0
+offset_left = 72.0
+offset_top = -1.0
+offset_right = 224.0
+offset_bottom = 60.0
+text = "Score: "
+label_settings = SubResource("LabelSettings_dm5wn")
+vertical_alignment = 1
+script = ExtResource("6_ska74")
+
+[node name="Enemy" parent="." instance=ExtResource("8_o00ox")]
+position = Vector2(450, -107)
