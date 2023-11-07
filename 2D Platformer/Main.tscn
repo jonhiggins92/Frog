@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://6biaakv5tnyk"]
+[gd_scene load_steps=7 format=3 uid="uid://6biaakv5tnyk"]
 
 [ext_resource type="Texture2D" uid="uid://bltdigf2humig" path="res://Green.png" id="1_ivbmp"]
 [ext_resource type="Texture2D" uid="uid://dgivrolcvw3ke" path="res://Terrain (16x16).png" id="2_17g7w"]
 [ext_resource type="PackedScene" uid="uid://bh7nmqlmud1ud" path="res://scenes/Main_Character.tscn" id="3_0h8xa"]
+[ext_resource type="PackedScene" uid="uid://dbyldmd5dhfa2" path="res://Apple.tscn" id="4_hppgw"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_yws6a"]
 texture = ExtResource("2_17g7w")
@@ -505,3 +506,15 @@ limit_right = 1920
 limit_bottom = 1080
 position_smoothing_enabled = true
 editor_draw_limits = true
+
+[node name="Apple" parent="." instance=ExtResource("4_hppgw")]
+position = Vector2(207, 884)
+scale = Vector2(2, 2)
+
+[node name="Apple2" parent="." instance=ExtResource("4_hppgw")]
+position = Vector2(402, 645)
+scale = Vector2(2, 2)
+
+[node name="Apple3" parent="." instance=ExtResource("4_hppgw")]
+position = Vector2(598, 553)
+scale = Vector2(2, 2)
