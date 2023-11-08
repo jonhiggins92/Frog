@@ -6,16 +6,19 @@ const JUMP_VELOCITY = -900.0
 @onready var sprite_2d = $Sprite2D
 @onready var coyote_time = $"../Coyote_Time"
 var wasLeft = false
-
+@onready var jump_sound = $AudioStreamPlayer2D
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
+var being_hit = false
 
+func die():
+	pass
 
 func _physics_process(delta):
 	# Add the gravity.
-	if (velocity.x > 1 || velocity.x < -1):
+	if (velocity.x > 1 || velocity.x < -1) && being_hit == false:
 		sprite_2d.animation = "running"
-	else:
+	elif being_hit == false:
 		sprite_2d.animation = "default"
 	
 	if not is_on_floor():
@@ -28,6 +31,7 @@ func _physics_process(delta):
 	# Handle Jump.
 	if Input.is_action_just_pressed("jump") and (is_on_floor() || !coyote_time.is_stopped()):
 		velocity.y = JUMP_VELOCITY
+		jump_sound.play()
 
 	var was_on_floor = is_on_floor()
 	# Get the input direction and handle the movement/deceleration.
@@ -52,3 +56,15 @@ func _physics_process(delta):
 		coyote_time.start()
 	
 	
+
+
+func _on_area_2d_body_entered(body):
+	if body.name == "Enemy" && being_hit == false:
+		being_hit = true
+		sprite_2d.play("hit")
+		await sprite_2d.animation_finished
+		being_hit = false
+
+
+func _on_sprite_2d_animation_finished():
+	pass # Replace with function body.

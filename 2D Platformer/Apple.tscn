@@ -1,7 +1,8 @@
-[gd_scene load_steps=29 format=3 uid="uid://dbyldmd5dhfa2"]
+[gd_scene load_steps=30 format=3 uid="uid://dbyldmd5dhfa2"]
 
 [ext_resource type="Texture2D" uid="uid://5a1c84c537y2" path="res://Fruits/Apple.png" id="1_bo8uc"]
 [ext_resource type="Texture2D" uid="uid://dwgr2j7wok7ut" path="res://Fruits/Collected.png" id="1_ikcyg"]
+[ext_resource type="AudioStream" uid="uid://bowywvt0bn8x7" path="res://coin.wav" id="3_khsqe"]
 
 [sub_resource type="GDScript" id="GDScript_b0tjr"]
 script/source = "extends Area2D
@@ -12,15 +13,19 @@ script/source = "extends Area2D
 
 @onready var animated_sprite_2d = $AnimatedSprite2D
 @onready var label = $\"../CanvasLayer/Panel/Label\"
+@onready var get_sound = $AudioStreamPlayer2D
+var collected = false
 
 
 func _on_body_entered(body):
-	if body.name == \"Player\":
-		Global.apples += 1
-		label.text = str(Global.apples)
+	if body.name == \"Player\" && collected == false: 
+		collected = true
+		get_sound.play()
 		animated_sprite_2d.play(\"collected\")
 		await animated_sprite_2d.animation_finished
 		queue_free()
+		Global.apples += 1
+		label.text = str(Global.apples, \" / 5\")
 
 "
 
@@ -212,5 +217,8 @@ autoplay = "default"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_8wp2f")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_khsqe")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
